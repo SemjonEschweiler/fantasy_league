@@ -4,16 +4,18 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        admins.cpp \
+        Team.cpp \
+        User.cpp \
+        admin.cpp \
         application.cpp \
         main.cpp \
         person.cpp \
-        player.cpp \
-        users.cpp
+        player.cpp
 
 HEADERS += \
-    admins.hpp \
+    Team.hpp \
+    User.hpp \
+    admin.hpp \
     application.hpp \
     person.hpp \
-    player.hpp \
-    users.hpp
+    player.hpp

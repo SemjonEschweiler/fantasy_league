@@ -3,8 +3,9 @@
 
 #include "Team.hpp"
 #include "player.hpp"
+#include "person.hpp"
 
-class User
+class User: public Person
 {
 public:
     User();

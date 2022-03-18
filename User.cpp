@@ -1,6 +1,6 @@
 #include "User.hpp"
 
-Users::Users()
+User::User()
 {
 
 }

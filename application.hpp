@@ -1,7 +1,7 @@
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
 
-#include "player.hpp"
+#include "Player.hpp"
 
 class Application
 {

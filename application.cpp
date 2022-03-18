@@ -1,6 +1,6 @@
-#include "application.hpp"
+#include "Application.hpp"
 
-application::application()
+Application::Application()
 {
 
 }

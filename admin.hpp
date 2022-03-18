@@ -1,4 +1,5 @@
-#include "player.hpp"
+#include "Player.hpp"
+#include "Person.hpp"
 #include <iostream>
 #include <string>
 
@@ -7,7 +8,7 @@
 
 using namespace std;
 
-class Admin
+class Admin: public Person
 {
 public:
     Admin();

@@ -1,4 +1,4 @@
-#include "person.hpp"
+#include "Person.hpp"
 
 Person::Person()
 {

@@ -1,6 +1,6 @@
 #include "admin.hpp"
 
-Admins::Admins()
+Admin::Admin()
 {
 
 }

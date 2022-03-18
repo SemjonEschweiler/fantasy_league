@@ -1,5 +1,5 @@
 #include <iostream>
-#include "player.hpp"
+#include "Player.hpp"
 
 #ifndef TEAM_HPP
 #define TEAM_HPP

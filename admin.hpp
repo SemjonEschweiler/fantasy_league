@@ -11,7 +11,7 @@ using namespace std;
 class Admin: public Person
 {
 public:
-    Admin();
+    Admin(string personID, string password);
     Player createNewPlayer(string name, int position, bool is_able_playing, int market_value);
     void deletePlayer(int playerID);
     void addPersonToSystem(bool isAdmin, int numericID, string password, int budget);

@@ -8,7 +8,7 @@ class Team
 {
 public:
     Team();
-    //--> TODO
+    //--> TODO change to dynamic memory
     Player * getTeamStarting();
     Player * getTeamSubstitutes();
     Player * getAllPlayers();
@@ -19,9 +19,9 @@ public:
     void setScore(int score);
 
 private:
-    Player starters[5];
-    Player substitutes[5];
-    int score;
+    Player _starters[5];
+    Player _substitutes[5];
+    int _score;
 
 };
 

@@ -1,15 +1,15 @@
 #include <iostream>
 #include <string>
 
-#ifndef PERSON_HPP
-#define PERSON_HPP
+#ifndef PERSON_H
+#define PERSON_H
 
 using namespace std;
 
 class Person
 {
 public:
-    Person();
+    Person(string personID, string password);
     string getID();
     string getPassword();
     void setID(string personID);
@@ -17,8 +17,8 @@ public:
 
 
 private:
-    string personID;
-    string password;
+    string _personID;//Uxxxxxxx for Users, Axxxxxxx for Admins
+    string _password;
 };
 
-#endif // PERSON_HPP
+#endif // PERSON_H

@@ -1,5 +1,5 @@
-#ifndef APPLICATION_HPP
-#define APPLICATION_HPP
+#ifndef APPLICATION_H
+#define APPLICATION_H
 
 #include "Player.hpp"
 
@@ -13,10 +13,10 @@ public:
     void displayAllPlayersOnMarket();
 
 private:
+    //TODO -> dynamic Memory here please!
+    Player _allPlayers[1000];
+    Player _allPlayersOnMarket[1000];
 
-//TODO -> dynamic Memory here please!
-    Player allPlayers[1000];
-    Player allPlayersOnMarket[1000];
 };
 
-#endif // APPLICATION_HPP
+#endif // APPLICATION_H

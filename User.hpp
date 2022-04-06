@@ -2,13 +2,13 @@
 #define USER_H
 
 #include "Team.hpp"
-#include "player.hpp"
-#include "person.hpp"
+#include "Player.hpp"
+#include "Person.hpp"
 
 class User: public Person
 {
 public:
-    User();
+    User(string personID, string password, int budget, Team userBudget);
     int getBudget();
     void setBudget(int budget);
     void seePlayers();
@@ -19,8 +19,8 @@ public:
     void displayScoreboard();
 
 private:
-    int budget;
-    Team userTeam;
+    int _budget;
+    Team _userTeam;
 };
 
 #endif // USER_H

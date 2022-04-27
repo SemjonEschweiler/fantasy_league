@@ -11,6 +11,8 @@ public:
     User(string personID, string password, int budget, Team userBudget);
     int getBudget();
     void setBudget(int budget);
+    Team getTeam();
+
     void seePlayers();
     Player buyPlayer(int playerID);
     Player sellPlayer(int playerID);

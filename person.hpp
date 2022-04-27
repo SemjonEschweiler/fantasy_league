@@ -14,6 +14,7 @@ public:
     string getPassword();
     void setID(string personID);
     void setPassword(string password);
+    virtual void display() = 0;
 
 
 private:

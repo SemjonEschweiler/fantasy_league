@@ -20,7 +20,7 @@ public:
 
 private:
     Player _starters[5];
-    Player _substitutes[5];
+    Player _substitutes[10];//Stores up to 10 substitutes, to store all players at the beginning in there
     int _score;
 
 };

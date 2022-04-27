@@ -23,6 +23,10 @@ Player::Player(string name, int playerID, bool healthStatus, string userID, int 
 
 }
 
+Player::~Player(){
+
+}
+
 string Player::getName(){
     return _name;
 }
@@ -77,4 +81,8 @@ void Player::setIsStarter(bool isStarter){
 
 void Player::setPosition(int position){
     _position = position;
+}
+
+void Player::displayPlayer(){
+    cout << "Player (" << _playerID << "): " << _name << "\n\tHealth Status: " << _healthStatus << "\n\tUser Owning: " << _userID << "\n\tMarketValue: " << _marketValue << "\n\tStarting Player: " << _isStarter << "\n\tPosition: " << _position << endl << endl;
 }

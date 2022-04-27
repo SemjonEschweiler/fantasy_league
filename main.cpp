@@ -8,16 +8,58 @@
 
 using namespace std;
 
+void func1(int numVal) {
+    numVal++;
+}
+
+// function that takes reference as parameter
+// notice the & before the parameter
+void func2(int &numRef) {
+    numRef++;
+}
+
 int main() // calls the application
 {
     Application app = Application();
 
-    Team dallas = Team();
-    Admin admin = Admin("A1234567", "helloworld");
-    User user = User("U1234567", "helloworld", 100000, dallas);
-    Player nowitzki = Player("Dirk Nowitzki", 1234567, true, "U1234567", 2000, true, 2);
-    cout << "Hello World!" << endl;
+    /*int var1 = 1;
+    int* pointVar;
+    pointVar = &var1;
 
+    *pointVar = 5;
+    cout << *pointVar << endl;
+    cout << var1 << endl;
+    cout << pointVar << endl;
+    cout << &var1 << endl;
+
+    int* arrPointer;
+    int arr[5] = {0,1,2,3,4};
+    arrPointer = arr;
+    cout << &arr[0] << endl;
+    cout << &arr[1] << endl;
+    cout << &arr[2] << endl;
+    int i = 1;
+    cout << i++ << endl;
+
+    cout << arrPointer << endl;
+    arrPointer += 2;
+    cout << arrPointer << endl;
+    cout << *arrPointer << endl;
+
+    cout << "Funcitons & Pointers: " << endl;
+
+    int num = 5;
+    cout << num << endl;
+    // pass by value
+    func1(num);
+
+    cout << num << endl;
+    // pass by reference
+    func2(num);
+    cout << num << endl;
+
+*/
+/*
     //Test if functions of Application can be called
     cout << endl << endl << "Test Application:" << endl;
     cout << app.getAllPlayers() << endl;
@@ -69,6 +111,6 @@ int main() // calls the application
     cout << nowitzki.getMarketValue() << endl;
     cout << nowitzki.isStarterPlayer() << endl;
     cout << nowitzki.getPosition() << endl;
-
+*/
     return 0;
 }

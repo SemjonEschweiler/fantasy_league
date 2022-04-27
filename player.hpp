@@ -9,6 +9,7 @@ class Player
 {
 public:
     Player();
+    ~Player();
     Player(string name, int playerID, bool healthStatus, string userID, int marketValue, bool isStarter, int position);
     string getName();
     int getPlayerID();
@@ -24,11 +25,12 @@ public:
     void setMarketValue(int marketValue);
     void setIsStarter(bool isStarter);
     void setPosition(int position);
+    void displayPlayer();
 
 private:
     string _name;
     int _playerID;
-    bool _healthStatus; //true for healthy false for not playing/unhealthy
+    bool _healthStatus; //true for fit; false for not playing/not fit
     string _userID;
     int _marketValue;
     bool _isStarter;

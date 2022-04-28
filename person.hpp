@@ -1,27 +1,30 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
 #ifndef PERSON_H
 #define PERSON_H
 
-#include <iostream>
-#include "Application.hpp"
+using namespace std;
 
 class Person
 {
 public:
-    Person(std::string personID, std::string password, Application* applicationPtr);
-    Person();
-    std::string getID();
-    std::string getPassword();
-    void setID(std::string personID);
-    void setPassword(std::string password);
-    void setApplicationPtr(Application* newApplicationPtr);
+    Person(string personID, string password, vector<Person*>* _allPeople);
+    string getID();
+    string getPassword();
+    void setID(string personID);
+    void setPassword(string password);
     virtual void displayPerson() = 0;
 
 
+    vector<Person *> *getAllPeoplePtr() const;
+    void setAllPeoplePtr(vector<Person *> *newAllPeoplePtr);
+
 private:
-    std::string _personID;//Uxxxxxxx for Users, Axxxxxxx for Admins
-    std::string _password;
-protected:
-    Application* _applicationPtr;
+    string _personID;//Uxxxxxxx for Users, Axxxxxxx for Admins
+    string _password;
+    vector<Person*>* _allPeoplePtr;
 };
 
 #endif // PERSON_H

@@ -1,15 +1,17 @@
 #ifndef USER_H
 #define USER_H
 
+#include "Person.hpp"
 #include "Team.hpp"
 #include "Player.hpp"
-#include "Person.hpp"
-#include "Application.hpp"
+#include <iostream>
+#include <vector>
+#include <string>
 
 class User: public Person
 {
 public:
-    User(std::string personID, std::string password, int budget, Team userBudget, Application* applicationPtr);
+    User(string personID, string password, int budget, Team userBudget, vector<Person*>* _allPeople);
     int getBudget();
     void setBudget(int budget);
     Team getTeam();

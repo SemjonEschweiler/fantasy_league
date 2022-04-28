@@ -1,8 +1,8 @@
-#ifndef TEAM_HPP
-#define TEAM_HPP
-
 #include <iostream>
 #include "Player.hpp"
+
+#ifndef TEAM_HPP
+#define TEAM_HPP
 
 class Team
 {

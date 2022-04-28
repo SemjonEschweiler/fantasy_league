@@ -1,7 +1,5 @@
 #include "Player.hpp"
 
-using namespace std;
-
 Player::Player(){
     _name = "";
     _playerID = -1;

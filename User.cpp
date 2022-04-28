@@ -1,7 +1,9 @@
 #include "User.hpp"
-using namespace std;
+#include <vector>
 
-User::User(string personID, string password, int budget, Team userBudget, Application *applicationPtr):Person(personID, password, applicationPtr){
+User::User(string personID, string password, int budget, Team team, vector<Person*>* _allPeople):Person(personID, password, _allPeople){
+    _budget = budget;
+    _userTeam = team;
 }
 
 int User::getBudget(){
@@ -36,6 +38,7 @@ void User::displayScoreboard(){
 
 }
 
-void User::displayPerson(){
 
+void User::displayPerson(){
+    cout << "User:  " << this->getID() << endl;
 }

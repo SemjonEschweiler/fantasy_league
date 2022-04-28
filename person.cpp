@@ -1,16 +1,10 @@
 #include "Person.hpp"
 
-using namespace std;
-
-Person::Person(string personID, string password, Application* applicationPtr){
+Person::Person(string personID, string password, vector<Person*>* allPeople){
     _personID = personID;//Uxxxxxxx for Users, Axxxxxxx for Admins
     _password = password;
-    //this->setApplicationPtr(applicationPtr);
-
-}
-
-Person::Person(){
-
+    _allPeoplePtr = allPeople;
+    _allPeoplePtr->push_back(this);
 }
 
 string Person::getID(){
@@ -29,7 +23,12 @@ void Person::setPassword(string password){
     _password = password;
 }
 
-void Person::setApplicationPtr(Application* newApplicationPtr)
+vector<Person *> *Person::getAllPeoplePtr() const
 {
-    _applicationPtr = newApplicationPtr;
+    return _allPeoplePtr;
+}
+
+void Person::setAllPeoplePtr(vector<Person *> *newAllPeoplePtr)
+{
+    _allPeoplePtr = newAllPeoplePtr;
 }

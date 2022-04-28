@@ -1,4 +1,4 @@
-#include "Application.hpp"
+    #include "Application.hpp"
 #include "Player.hpp"
 #include "Admin.hpp"
 #include "User.hpp"
@@ -8,9 +8,10 @@
 
 using namespace std;
 
-Application::Application(){
+Application::Application(): _allPlayers(), _allPlayersOnMarket(){
     currentPlayerID = 10000; //ID with 5 digits for players
     currentPersonID = 1000000;
+
 
 //Initializes all Users, Admins (maybe also Teams and Player -> could also be done by an Admin)
 /* These should be created by the Admin
@@ -19,59 +20,77 @@ Application::Application(){
     Player durant = Player("Kevin Durant", 1000003, true, "U1234567", 2000, true, 2);
 */
     Team dallas = Team();
-    //Admin* admin = new Admin(assignCurrentPersonID(true), "helloworld", this);
+    Admin admin = Admin(assignCurrentPersonID(true), "helloworld", &currentPlayerID, &currentPersonID, &_allPlayers, &_allPlayersOnMarket, &_allPeople);
 
-    User user = User(assignCurrentPersonID(false), "helloworld", 100000, dallas, this);
+    User user = User(assignCurrentPersonID(false), "helloworld", 100000, dallas, &_allPeople);
     cout << "assignCurrentPersonID(false): " << assignCurrentPersonID(false) << endl;
     cout << "assignCurrentPersonID(true): " << assignCurrentPersonID(true) << endl;
     cout << "assignCurrentPersonID(false): " << assignCurrentPersonID(false) << endl;
 
-    /*
     admin.createNewPlayer("Dirk Nowitzki", 2, true, 10000);
     cout << "application: admin created Player" << endl;
     admin.createNewPlayer("Kobe Bryant", 2, true, 20000);
     admin.createNewPlayer("Kevin Durant", 2, true, 10000);
 
-    admin.deletePlayer(10001);
-*/
+    this->displayAllPlayers();
 
+    admin.deletePlayer(10001);
 
     this->displayAllPlayers();
     this->displayAllPlayersOnMarket();
+
+    this->displayAllPeople();
+
+    //start of create 100
+    cout << "Start creation of 100 random players" << endl;
+    admin.create100RandomPlayers(randomFirstNames, randomLastNames, sizeof(randomFirstNames), sizeof(randomLastNames));
+    cout << "End of creation of 100 random players" << endl;
+
+    this->displayAllPlayers();
+
+    cout << "Program Finished!" << endl;
 }
 
 Application::~Application(){
 
 }
 
-vector<Player*>* Application::getAllPlayersPtr(){
-    return &_allPlayers;
+Player * Application::getAllPlayers(){
+
 }
 
-vector<Player*>* Application::getAllPlayersOnMarketPtr(){
-    return &_allPlayersOnMarket;
-}
+Player * Application::getAllPlayersOnMarket(){
 
-vector<Person*>* Application::getAllPeoplePtr(){
-    return &_allPeople;
 }
 
 void Application::displayAllPlayers(){
     cout << "\n\n-------------------\n";
     cout << "Displaying all Players (" << _allPlayers.size() << "): " << endl;
-    cout << "-------------------\n\n";
+    cout << "\n";
     for (int i=0; i< (int)_allPlayers.size(); i++){
         _allPlayers[i]->displayPlayer();
     }
+    cout << "-------------------\n";
 }
 
 void Application::displayAllPlayersOnMarket(){
     cout << "\n\n-------------------\n";
     cout << "Displaying all Players on Market (" << _allPlayersOnMarket.size() << "): " << endl;
-    cout << "-------------------\n\n";
+    cout << "\n";
     for (int i=0; i< (int)_allPlayersOnMarket.size(); i++){
         _allPlayersOnMarket[i]->displayPlayer();
     }
+    cout << "-------------------\n";
+}
+
+void Application::displayAllPeople(){
+    cout << "\n\n-------------------\n";
+    cout << "Displaying all People registered in System (" << _allPeople.size() << "): " << endl;
+    cout << "\n";
+    for (int i=0; i< (int)_allPeople.size(); i++){
+        _allPeople[i]->displayPerson();
+    }
+    cout << "-------------------\n";
 }
 
 /*
@@ -92,22 +111,5 @@ string Application::assignCurrentPersonID(bool isAdmin){
     return aux.str();
 }
 
-int Application::getCurrentPlayerID() const
-{
-    return currentPlayerID;
-}
 
-void Application::setCurrentPlayerID(int newCurrentPlayerID)
-{
-    currentPlayerID = newCurrentPlayerID;
-}
 
-int Application::getCurrentPersonID() const
-{
-    return currentPersonID;
-}
-
-void Application::setCurrentPersonID(int newCurrentPersonID)
-{
-    currentPersonID = newCurrentPersonID;
-}

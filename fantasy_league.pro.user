@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.2, 2022-04-27T23:38:28. -->
+<!-- Written by QtCreator 6.0.2, 2022-04-28T11:30:22. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -242,9 +242,8 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">fantasy_league2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/semjo/OneDrive - FH Technikum Wien/Studium Robotik/4. Semester/Computing/fantasy-league/fantasy_league.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/semjo/OneDrive - FH Technikum Wien/Studium Robotik/4. Semester/Computing/fantasy-league/fantasy_league.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/semjo/OneDrive - FH Technikum Wien/Studium Robotik/4. Semester/Computing/fantasy_league-variables-are-passed-instead-of-whole-application/fantasy_league.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/semjo/OneDrive - FH Technikum Wien/Studium Robotik/4. Semester/Computing/fantasy_league-variables-are-passed-instead-of-whole-application/fantasy_league.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>

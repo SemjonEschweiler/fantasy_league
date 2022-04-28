@@ -1,17 +1,17 @@
 #include "Admin.hpp"
+#include "User.hpp"
+#include "Team.hpp"
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <time.h>
 
-using namespace std;
-/*
-Admin::Admin(string personID, string password, Application* applicationPtr): Person(personID, password, applicationPtr){
-    _applicationPtr->getAllPeoplePtr()->push_back(this);
-}
-*/
+Admin::Admin(string personID, string password, int* currentPlayerID, int* currentPersonID, vector<Player*>* _allPlayers, vector<Player*>* _allPlayersOnMarket, vector<Person*>* _allPeople): Person(personID, password, _allPeople){
 
-Admin::Admin(){
-
+    _currentPlayerIDPtr = currentPlayerID;
+    _currentPersonIDPtr = currentPersonID;
+    _allPlayersPtr = _allPlayers;
+    _allPlayersOnMarketPtr = _allPlayersOnMarket;
 }
 
 Player* Admin::createNewPlayer(string name, int position, bool is_able_playing, int market_value){
@@ -49,8 +49,11 @@ void Admin::deletePlayer(int playerID){
 
 void Admin::addPersonToSystem(bool isAdmin, int numericID, string password, int budget){
     //Adds a person to the system (either User or Admin) if it is a Person it will get a budget too
-    if (isAdmin){
-
+    if (isAdmin == 1){
+        Admin newadmin = Admin(this->assignCurrentPersonID(isAdmin), "random", _currentPlayerIDPtr, _currentPersonIDPtr, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
+    }else{
+        Team newteam = Team();
+        User newuser = User(this->assignCurrentPersonID(isAdmin), "randompw", 100000, newteam, this->getAllPeoplePtr());
     }
 }
 
@@ -92,18 +95,6 @@ void Admin::setCurrentPersonIDPtr(int *newCurrentPersonIDPtr)
     _currentPersonIDPtr = newCurrentPersonIDPtr;
 }
 
-vector<Person *> *Admin::allPeoplePtr() const
-{
-    return _allPeoplePtr;
-}
-
-void Admin::setAllPeoplePtr(vector<Person *> *newAllPeople)
-{
-    _allPeoplePtr = newAllPeople;
-}
-
-
-
 int Admin::assignCurrentPlayerID(){
     //this function assigns the next PlayerID and updates the currentPlayerID
     *_currentPlayerIDPtr += 1;
@@ -122,6 +113,48 @@ string Admin::assignCurrentPersonID(bool isAdmin){
     return aux.str();
 }
 
-void displayPerson(){
 
+void Admin::displayPerson(){
+    cout << "Admin: " << this->getID() << endl;
+}
+
+void Admin::create100RandomPlayers(string *firstNames, string *lastNames, int sizeFirstNames, int sizeLastNames)
+{
+    int randIndexFirstName, randIndexLastName, randPosition, randHealthy, randMarketValueMultiplication, marketValue;
+    string firstName, lastName, fullName;
+    stringstream fullNameSs;
+    bool isHealthy;
+
+    srand ( time(NULL) );
+
+    for (int i=0; i<100; i++){
+        fullNameSs.str(std::string());
+        randIndexFirstName = rand() % sizeFirstNames;
+        randIndexLastName = rand() % sizeLastNames;
+        randPosition = rand() % 5; //As there are 5 positions
+        randHealthy = rand() % 100; //95% probability that person is healthy
+        randMarketValueMultiplication = (rand() % 20) + 1;
+
+        firstName = (*(firstNames + randIndexFirstName));
+        //firstName = (*firstNames)[randIndexFirstName];
+        lastName = (*(lastNames + randIndexLastName));
+        fullNameSs << firstName << " " << lastName;
+        fullName = fullNameSs.str();
+        cout << "worked until here" << endl;
+
+        /*
+        if (randHealthy >= 95){
+            isHealthy = true;
+        }else {
+            isHealthy = false;
+        }
+        marketValue = randMarketValueMultiplication * 50000; //Marketvalue is a random number between 1 and 20 multiplied by 50000
+
+        cout << "Name of Player: " << fullName << endl;
+        /*cout << "FirstName Random: " << randIndexFirstName << endl;
+        cout << "LastName Random: " << randIndexLastName << endl;
+        */
+
+        //this->createNewPlayer(fullName, randPosition, isHealthy, marketValue);
+    }
 }

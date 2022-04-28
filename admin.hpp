@@ -21,7 +21,7 @@ public:
     int assignCurrentPlayerID();
     string assignCurrentPersonID(bool isAdmin);
     void displayPerson();
-    void create100RandomPlayers(string *firstNames, string *lastNames, int sizeFirstNames, int sizeLastNames);
+    void createRandomPlayers(int amountOfPlayers, string *firstNames, string *lastNames, int sizeFirstNames, int sizeLastNames);
 
 
     void setCurrentPlayerIDPtr(int *newCurrentPlayerIDPtr);

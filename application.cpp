@@ -1,4 +1,4 @@
-    #include "Application.hpp"
+#include "Application.hpp"
 #include "Player.hpp"
 #include "Admin.hpp"
 #include "User.hpp"
@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 
+//1.0.0
 using namespace std;
 
 Application::Application(): _allPlayers(), _allPlayersOnMarket(){
@@ -42,9 +43,7 @@ Application::Application(): _allPlayers(), _allPlayersOnMarket(){
     this->displayAllPeople();
 
     //start of create 100
-    cout << "Start creation of 100 random players" << endl;
-    admin.create100RandomPlayers(randomFirstNames, randomLastNames, sizeof(randomFirstNames), sizeof(randomLastNames));
-    cout << "End of creation of 100 random players" << endl;
+    admin.createRandomPlayers(20, randomFirstNames, randomLastNames, sizeof(randomFirstNames)/sizeof(randomFirstNames[0]), sizeof(randomLastNames)/sizeof(randomFirstNames[0]));
 
     this->displayAllPlayers();
 
@@ -55,12 +54,12 @@ Application::~Application(){
 
 }
 
-Player * Application::getAllPlayers(){
-
+vector<Player*>* Application::getAllPlayers(){
+    return &_allPlayers;
 }
 
-Player * Application::getAllPlayersOnMarket(){
-
+vector<Player*>* Application::getAllPlayersOnMarket(){
+    return &_allPlayersOnMarket;
 }
 
 void Application::displayAllPlayers(){

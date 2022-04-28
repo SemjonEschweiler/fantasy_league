@@ -10,8 +10,10 @@ class Application
 public:
     Application();
     ~Application();
-    Player * getAllPlayers();
-    Player * getAllPlayersOnMarket();
+    vector<Player*>* getAllPlayers();
+    vector<Player*>* getAllPlayersOnMarket();
+    int getSizeAllPlayers();
+    int getSizeAllPlayersOnMarket();
     void displayAllPlayers();
     void displayAllPlayersOnMarket();
     void displayAllPeople();

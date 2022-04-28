@@ -54,6 +54,11 @@ void Admin::addPersonToSystem(bool isAdmin, int numericID, string password, int 
     }else{
         Team newteam = Team();
         User newuser = User(this->assignCurrentPersonID(isAdmin), "randompw", 100000, newteam, this->getAllPeoplePtr());
+
+        for (int i=0; i<7; i++){
+            //add Player to User(to do so add the UserID to Player/Team (Add Player to Substitutes of a team)
+        }
+
     }
 }
 
@@ -118,7 +123,7 @@ void Admin::displayPerson(){
     cout << "Admin: " << this->getID() << endl;
 }
 
-void Admin::create100RandomPlayers(string *firstNames, string *lastNames, int sizeFirstNames, int sizeLastNames)
+void Admin::createRandomPlayers(int amountOfPlayers, string *firstNames, string *lastNames, int sizeFirstNames, int sizeLastNames)
 {
     int randIndexFirstName, randIndexLastName, randPosition, randHealthy, randMarketValueMultiplication, marketValue;
     string firstName, lastName, fullName;
@@ -127,7 +132,9 @@ void Admin::create100RandomPlayers(string *firstNames, string *lastNames, int si
 
     srand ( time(NULL) );
 
-    for (int i=0; i<100; i++){
+    cout << "Declaration of variables worked" << endl;
+
+    for (int i=0; i<amountOfPlayers; i++){
         fullNameSs.str(std::string());
         randIndexFirstName = rand() % sizeFirstNames;
         randIndexLastName = rand() % sizeLastNames;
@@ -136,13 +143,11 @@ void Admin::create100RandomPlayers(string *firstNames, string *lastNames, int si
         randMarketValueMultiplication = (rand() % 20) + 1;
 
         firstName = (*(firstNames + randIndexFirstName));
-        //firstName = (*firstNames)[randIndexFirstName];
         lastName = (*(lastNames + randIndexLastName));
         fullNameSs << firstName << " " << lastName;
         fullName = fullNameSs.str();
-        cout << "worked until here" << endl;
 
-        /*
+
         if (randHealthy >= 95){
             isHealthy = true;
         }else {
@@ -150,11 +155,6 @@ void Admin::create100RandomPlayers(string *firstNames, string *lastNames, int si
         }
         marketValue = randMarketValueMultiplication * 50000; //Marketvalue is a random number between 1 and 20 multiplied by 50000
 
-        cout << "Name of Player: " << fullName << endl;
-        /*cout << "FirstName Random: " << randIndexFirstName << endl;
-        cout << "LastName Random: " << randIndexLastName << endl;
-        */
-
-        //this->createNewPlayer(fullName, randPosition, isHealthy, marketValue);
+        this->createNewPlayer(fullName, randPosition, isHealthy, marketValue);
     }
 }

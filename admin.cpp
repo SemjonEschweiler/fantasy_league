@@ -3,13 +3,15 @@
 #include <sstream>
 #include <iostream>
 
-Admin::Admin(string personID, string password, int* currentPlayerID, int* currentPersonID, vector<Player*>* _allPlayers, vector<Player*>* _allPlayersOnMarket, vector<Person*>* _allPeople): Person(personID, password){
-    this->setCurrentPlayerIDPtr(currentPlayerID);
-    this->setCurrentPersonIDPtr(currentPersonID);
-    this->setAllPlayersPtr(_allPlayers);
-    this->setAllPlayersOnMarketPtr(_allPlayersOnMarket);
-    this->setAllPeoplePtr(_allPeople);
-    _allPeoplePtr->push_back(this);
+using namespace std;
+/*
+Admin::Admin(string personID, string password, Application* applicationPtr): Person(personID, password, applicationPtr){
+    _applicationPtr->getAllPeoplePtr()->push_back(this);
+}
+*/
+
+Admin::Admin(){
+
 }
 
 Player* Admin::createNewPlayer(string name, int position, bool is_able_playing, int market_value){
@@ -101,6 +103,7 @@ void Admin::setAllPeoplePtr(vector<Person *> *newAllPeople)
 }
 
 
+
 int Admin::assignCurrentPlayerID(){
     //this function assigns the next PlayerID and updates the currentPlayerID
     *_currentPlayerIDPtr += 1;
@@ -117,4 +120,8 @@ string Admin::assignCurrentPersonID(bool isAdmin){
     }
     *_currentPersonIDPtr += 1;
     return aux.str();
+}
+
+void displayPerson(){
+
 }

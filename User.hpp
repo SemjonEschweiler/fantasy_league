@@ -4,11 +4,12 @@
 #include "Team.hpp"
 #include "Player.hpp"
 #include "Person.hpp"
+#include "Application.hpp"
 
 class User: public Person
 {
 public:
-    User(string personID, string password, int budget, Team userBudget);
+    User(std::string personID, std::string password, int budget, Team userBudget, Application* applicationPtr);
     int getBudget();
     void setBudget(int budget);
     Team getTeam();
@@ -19,6 +20,7 @@ public:
     void seeLineup();
     Player changeStatusPlayer(int playerID);
     void displayScoreboard();
+    void displayPerson();
 
 private:
     int _budget;

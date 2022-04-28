@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Application::Application(): _allPlayers(), _allPlayersOnMarket(){
+Application::Application(){
     currentPlayerID = 10000; //ID with 5 digits for players
     currentPersonID = 1000000;
 
@@ -19,20 +19,21 @@ Application::Application(): _allPlayers(), _allPlayersOnMarket(){
     Player durant = Player("Kevin Durant", 1000003, true, "U1234567", 2000, true, 2);
 */
     Team dallas = Team();
-    Admin admin = Admin(assignCurrentPersonID(true), "helloworld", &currentPlayerID, &currentPersonID, &_allPlayers, &_allPlayersOnMarket, &_allPeople);
+    //Admin* admin = new Admin(assignCurrentPersonID(true), "helloworld", this);
 
-    User user = User(assignCurrentPersonID(false), "helloworld", 100000, dallas);
+    User user = User(assignCurrentPersonID(false), "helloworld", 100000, dallas, this);
     cout << "assignCurrentPersonID(false): " << assignCurrentPersonID(false) << endl;
     cout << "assignCurrentPersonID(true): " << assignCurrentPersonID(true) << endl;
     cout << "assignCurrentPersonID(false): " << assignCurrentPersonID(false) << endl;
 
+    /*
     admin.createNewPlayer("Dirk Nowitzki", 2, true, 10000);
     cout << "application: admin created Player" << endl;
     admin.createNewPlayer("Kobe Bryant", 2, true, 20000);
     admin.createNewPlayer("Kevin Durant", 2, true, 10000);
 
     admin.deletePlayer(10001);
-
+*/
 
 
     this->displayAllPlayers();
@@ -43,12 +44,16 @@ Application::~Application(){
 
 }
 
-Player * Application::getAllPlayers(){
-
+vector<Player*>* Application::getAllPlayersPtr(){
+    return &_allPlayers;
 }
 
-Player * Application::getAllPlayersOnMarket(){
+vector<Player*>* Application::getAllPlayersOnMarketPtr(){
+    return &_allPlayersOnMarket;
+}
 
+vector<Person*>* Application::getAllPeoplePtr(){
+    return &_allPeople;
 }
 
 void Application::displayAllPlayers(){
@@ -85,4 +90,24 @@ string Application::assignCurrentPersonID(bool isAdmin){
     }
     currentPersonID += 1;
     return aux.str();
+}
+
+int Application::getCurrentPlayerID() const
+{
+    return currentPlayerID;
+}
+
+void Application::setCurrentPlayerID(int newCurrentPlayerID)
+{
+    currentPlayerID = newCurrentPlayerID;
+}
+
+int Application::getCurrentPersonID() const
+{
+    return currentPersonID;
+}
+
+void Application::setCurrentPersonID(int newCurrentPersonID)
+{
+    currentPersonID = newCurrentPersonID;
 }

@@ -1,7 +1,7 @@
 #include "User.hpp"
+using namespace std;
 
-User::User(string personID, string password, int budget, Team userBudget):Person(personID, password){
-
+User::User(string personID, string password, int budget, Team userBudget, Application *applicationPtr):Person(personID, password, applicationPtr){
 }
 
 int User::getBudget(){
@@ -33,5 +33,9 @@ Player User::changeStatusPlayer(int playerID){
 }
 
 void User::displayScoreboard(){
+
+}
+
+void User::displayPerson(){
 
 }

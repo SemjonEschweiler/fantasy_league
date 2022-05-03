@@ -1,18 +1,22 @@
 #include "Team.hpp"
 
 Team::Team(){
-
+    _score = 0;
 }
-Player * Team::getTeamStarting(){
-    return _starters;
-}
-
-Player * Team::getTeamSubstitutes(){
-    return _substitutes;
+vector<Player*>* Team::getTeamStarters(){
+    return &_starters;
 }
 
-Player * Team::getAllPlayers(){
+vector<Player*>* Team::getTeamSubstitutes(){
+    return &_substitutes;
+}
 
+vector<Player*> Team::getAllPlayers(){
+    vector<Player*> allPlayers;
+    allPlayers.reserve( _starters.size() + _substitutes.size() ); // preallocate memory
+    allPlayers.insert( allPlayers.end(), _starters.begin(), _starters.end() );
+    allPlayers.insert( allPlayers.end(), _substitutes.begin(), _substitutes.end() );
+    return allPlayers;
 }
 
 void Team::displayAllPlayers(){

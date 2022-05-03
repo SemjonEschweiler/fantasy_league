@@ -4,6 +4,9 @@
 #include <vector>
 #include "Player.hpp"
 #include "Person.hpp"
+#include "User.hpp"
+#include "Admin.hpp"
+#include "User.hpp"
 
 class Application
 {
@@ -19,6 +22,8 @@ public:
     void displayAllPeople();
     int assignCurrentPlayerID();
     string assignCurrentPersonID(bool isAdmin);
+    User* getUserPtrFromID(string ID);
+    Player* getPlayerPtrFromID(int playerID);
 //With this Function you'll receive the current ID to assign it to a newly created player and immediately increment the currentPlayerID
 private:
     int currentPlayerID; //Each player will have an ID with 5 digits,  10000 is the first to be given to a player

@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include "Person.hpp"
+#include "User.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -23,23 +24,18 @@ public:
     void displayPerson();
     void createRandomPlayers(int amountOfPlayers, string *firstNames, string *lastNames, int sizeFirstNames, int sizeLastNames);
 
-
+    User* getUserPtrFromID(string personID);
     void setCurrentPlayerIDPtr(int *newCurrentPlayerIDPtr);
     int *getCurrentPlayerIDPtr() const;
-    void setAllPlayersPtr(vector<Player *> *newAllPlayersPtr);
-    void setAllPlayersOnMarketPtr(vector<Player *> *newAllPlayersOnMarketPtr);
 
     int *currentPersonIDPtr() const;
     void setCurrentPersonIDPtr(int *newCurrentPersonIDPtr);
 
-    vector<Person *> *allPeoplePtr() const;
-    void setAllPeoplePtr(vector<Person *> *newAllPeople);
 
 private:
     int* _currentPlayerIDPtr;
     int* _currentPersonIDPtr;
-    vector<Player*>* _allPlayersPtr;
-    vector<Player*>* _allPlayersOnMarketPtr;
+    //vector<Person*>* _allPeoplePtr; gets declared already in Person
 
 };
 

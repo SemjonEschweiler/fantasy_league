@@ -11,22 +11,23 @@
 class User: public Person
 {
 public:
-    User(string personID, string password, int budget, Team userBudget, vector<Person*>* _allPeople);
+    User(string personID, string password, int budget, Team* team, vector<Player*>* _allPlayers, vector<Player*>* _allPlayersOnMarket, vector<Person*>* _allPeople);
     int getBudget();
     void setBudget(int budget);
-    Team getTeam();
+    Team* getTeam();
 
     void seePlayers();
     Player buyPlayer(int playerID);
     Player sellPlayer(int playerID);
     void seeLineup();
-    Player changeStatusPlayer(int playerID);
+    int changeStatusPlayer(int playerID);
     void displayScoreboard();
     void displayPerson();
+    //void addPlayer(Player newPlayer);
 
 private:
     int _budget;
-    Team _userTeam;
+    Team* _userTeam;
 };
 
 #endif // USER_H

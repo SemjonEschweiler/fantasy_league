@@ -6,13 +6,15 @@
 #include <iostream>
 #include <time.h>
 
-Admin::Admin(string personID, string password, int* currentPlayerID, int* currentPersonID, vector<Player*>* _allPlayers, vector<Player*>* _allPlayersOnMarket, vector<Person*>* _allPeople): Person(personID, password, _allPeople){
+Admin::Admin(string personID, string password, int* currentPlayerID, int* currentPersonID, vector<Player*>* _allPlayers, vector<Player*>* _allPlayersOnMarket, vector<Person*>* _allPeople): Person(personID, password, _allPlayers, _allPlayersOnMarket, _allPeople){
 
     _currentPlayerIDPtr = currentPlayerID;
     _currentPersonIDPtr = currentPersonID;
     _allPlayersPtr = _allPlayers;
     _allPlayersOnMarketPtr = _allPlayersOnMarket;
+    _allPeoplePtr = _allPeople;
 }
+
 
 Player* Admin::createNewPlayer(string name, int position, bool is_able_playing, int market_value){
     Player* newplayer = new Player(name, assignCurrentPlayerID(), is_able_playing, "", market_value, false, position);
@@ -29,18 +31,64 @@ void Admin::deletePlayer(int playerID){
     // Frees Player from both vectors and releases memory
     // Add functionality: Give User the amount of money what the deleted player is worth.
 
+
+    //This for loop deletes the Player from the _allPlayers vector and deletes Player from User vectors(starters or substitutes)
+    string owningUserID;
     for (int i=0;i < (int) _allPlayersPtr->size(); i++){
         if ((*_allPlayersPtr)[i]->getPlayerID() == playerID){
+            bool searchInUser = true;
+            owningUserID = (*_allPlayersPtr)[i]->getOwningUserID();
+            User* owningUser;
+            Team* owningTeam;
+            try {
+                owningUser = getUserPtrFromID(owningUserID);
+                owningTeam = owningUser->getTeam();
+            } catch (...) {
+                searchInUser = false;
+            }
+
+            if (searchInUser == true){
+                int deleteIndex = -1;
+                //Search in Substitutes if player exists there
+                vector<Player*>* substitutes = owningTeam->getTeamSubstitutes();
+                for (int i=0; i<(int) substitutes->size(); i++){
+                    if ((*substitutes)[i]->getPlayerID() == playerID){
+                        cout << "Found Player in Substitutes! " << endl;
+                        int marketValuePlayer = (*substitutes)[i]->getMarketValue();
+                        owningUser->setBudget(owningUser->getBudget()+marketValuePlayer);
+                        deleteIndex = i;
+                        //(*owningTeam->getTeamSubstitutes())[i] = new Player();
+                    }
+                }
+
+                if (deleteIndex != -1){
+                    substitutes->erase(substitutes->begin() + deleteIndex);
+                }
+                deleteIndex = -1;
+                vector<Player*>* starters = owningTeam->getTeamStarters();
+                //Search in Starters if player exists there
+                for (int i=0; i<(int) starters->size(); i++){
+                    if ((*starters)[i]->getPlayerID() == playerID){
+                        cout << "Found Player in Starters! " << endl;
+                        int marketValuePlayer = (*starters)[i]->getMarketValue();
+                        owningUser->setBudget(owningUser->getBudget()+marketValuePlayer);
+                        deleteIndex = i;
+                    }
+                }
+                if (deleteIndex != -1){
+                    starters->erase(starters->begin() + deleteIndex);
+                }
+            }
             cout << "delete this guy: " << (*_allPlayersPtr)[i]->getName() << endl;
-            delete (*_allPlayersPtr)[i]; //delete Player to avoid memory leak
-            _allPlayersPtr->erase(_allPlayersPtr->begin() + i); // remove Player from all Players vector
+           _allPlayersPtr->erase(_allPlayersPtr->begin() + i); // remove Player from all Players vector
 
         }
     }
 
+    //This loop deletes the Player from _allPlayersOnMarket vector
     for (int i=0;i < (int) _allPlayersOnMarketPtr->size(); i++){
         if ((*_allPlayersOnMarketPtr)[i]->getPlayerID() == playerID){
-            //delete (*_allPlayersPtr)[i]; //not necessary anymore, since it has been removed in the previous for loop
+            delete (*_allPlayersOnMarketPtr)[i]; // delete PLayer to avoid memory leak
             _allPlayersOnMarketPtr->erase(_allPlayersOnMarketPtr->begin() + i); // remove Player from all Players vector
 
         }
@@ -50,24 +98,70 @@ void Admin::deletePlayer(int playerID){
 void Admin::addPersonToSystem(bool isAdmin, int numericID, string password, int budget){
     //Adds a person to the system (either User or Admin) if it is a Person it will get a budget too
     if (isAdmin == 1){
-        Admin newadmin = Admin(this->assignCurrentPersonID(isAdmin), "random", _currentPlayerIDPtr, _currentPersonIDPtr, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
+        cout << "this->assignCurrentPersonID(isAdmin): " << this->assignCurrentPersonID(isAdmin) << endl;
+        cout << "this->getAllPeoplePtr(): " << this->getAllPeoplePtr() << endl;
+        Admin* newadmin = new Admin(this->assignCurrentPersonID(isAdmin), "random", _currentPlayerIDPtr, _currentPersonIDPtr, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
     }else{
-        Team newteam = Team();
-        User newuser = User(this->assignCurrentPersonID(isAdmin), "randompw", 100000, newteam, this->getAllPeoplePtr());
-
-        for (int i=0; i<7; i++){
+        Team* newteam = new Team();
+        srand ( time(NULL) );
+        User* newuser = new User(this->assignCurrentPersonID(isAdmin), "randompw", 100000, newteam, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
+        int randIndex;
+        bool wasPlayerAdded;
+        cout << "All declarations worked" << endl;
+        for (int i=0; i<7; i++){//Adding 7 players
             //add Player to User(to do so add the UserID to Player/Team (Add Player to Substitutes of a team)
+            randIndex = rand() % _allPlayersOnMarketPtr->size();
+            (*_allPlayersOnMarketPtr)[randIndex]->setOwningUserId(newuser->getID());
+            //newuser.addPlayer(*(*_allPlayersOnMarketPtr)[randIndex]);
+            wasPlayerAdded = false;
+            for (int i=0; i< (int) sizeof(newuser->getTeam()->getTeamSubstitutes()); i++){
+                if (wasPlayerAdded == false){
+                    if (newuser->getTeam()->getTeamSubstitutes()->size() <= 10)
+                    {
+                    Player* addThisPlayer = (*_allPlayersOnMarketPtr)[randIndex];
+                    (*newuser->getTeam()->getTeamSubstitutes()).push_back( addThisPlayer);
+                    wasPlayerAdded = true;
+                    cout << "Player has been added to substitutes" << endl;
+                    }else{
+
+                    }
+
+                 }
+            }
+
+            _allPlayersOnMarketPtr->erase(_allPlayersOnMarketPtr->begin() + randIndex);
+
         }
 
     }
 }
 
 void Admin::updateScorePlayer(int playerID, int score){
+    string owningUserID;
+    /*
+    srand ( time(NULL) );
+    int randScore = rand() % 11;
+*/
+    //This for loop obtains the owning UserID of the User who owns the Player
+    for (int i=0; i< (int) _allPlayersPtr->size();i++){
+        if (playerID == (*_allPlayersPtr)[i]->getPlayerID()){
+            owningUserID = (*_allPlayersPtr)[i]->getOwningUserID();
+        }
+    }
+
+    //this finds the User by the UserID
+    User* cUser = getUserPtrFromID(owningUserID);
+    Player* player = getPlayerPtrFromID(playerID);
+    if ((player->isStarterPlayer() == true) && (player->getHealthStatus() == true)){
+        cUser->getTeam()->setScore(cUser->getTeam()->getScore() + score);
+    }
+    cout << "This is the updated score now: (" << cUser->getTeam()->getScore() << ")" << endl;
 
 }
 
 void Admin::changeHealthStatusPlayer(int playerID, bool isHealthy){
-
+    Player* p = getPlayerPtrFromID(playerID);
+    p->setHealthStatus(isHealthy);
 }
 
 void Admin::setCurrentPlayerIDPtr(int *newCurrentPlayerIDPtr)
@@ -78,16 +172,6 @@ void Admin::setCurrentPlayerIDPtr(int *newCurrentPlayerIDPtr)
 int* Admin::getCurrentPlayerIDPtr() const
 {
     return _currentPlayerIDPtr;
-}
-
-void Admin::setAllPlayersPtr(vector<Player *> *newAllPlayersPtr)
-{
-    _allPlayersPtr = newAllPlayersPtr;
-}
-
-void Admin::setAllPlayersOnMarketPtr(vector<Player *> *newAllPlayersOnMarketPtr)
-{
-    _allPlayersOnMarketPtr = newAllPlayersOnMarketPtr;
 }
 
 int *Admin::currentPersonIDPtr() const
@@ -158,3 +242,21 @@ void Admin::createRandomPlayers(int amountOfPlayers, string *firstNames, string 
         this->createNewPlayer(fullName, randPosition, isHealthy, marketValue);
     }
 }
+
+User* Admin::getUserPtrFromID(string personID){
+    char firstChar = personID[0];
+    if (firstChar == 'A'){
+        throw "Error: You can not obtain a User if you are giving an Admin ID";
+    }
+
+    for (int i=0; i < (int) _allPeoplePtr->size();i++){
+        if (personID == (*_allPeoplePtr)[i]->getID()){
+            return dynamic_cast<User*> ((*_allPeoplePtr)[i]);
+        }
+    }
+
+    throw "Error: Person not found";
+}
+
+
+

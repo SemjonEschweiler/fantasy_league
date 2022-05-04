@@ -134,7 +134,18 @@ Application::Application(){
 }
 
 Application::~Application(){
-
+    //TODO:
+    for (int i=0;i<(int)_allPlayers.size(); i++){
+        delete _allPlayers[i];
+    }
+    for (int i=0;i<(int)_allPeople.size();i++){
+        if (_allPeople[i]->getID()[0] == 'U'){
+            delete dynamic_cast<User*>(_allPeople[i])->getTeam();
+            delete dynamic_cast<User*>(_allPeople[i]);
+        }else if (_allPeople[i]->getID()[0] == 'A'){
+            delete dynamic_cast<Admin*>(_allPeople[i]);
+        }
+    }
 }
 
 vector<Player*>* Application::getAllPlayers(){

@@ -169,6 +169,7 @@ void Admin::updateScorePlayer(int playerID, int score){
     }
 }
 
+
 void Admin::changeHealthStatusPlayer(int playerID, bool isHealthy){
     cout << "Changing the Healthstatus of Player(" << playerID << ") to " << isHealthy << "... ";
     Player* p = getPlayerPtrFromID(playerID);

@@ -50,7 +50,8 @@ void Person::setAllPlayersOnMarketPtr(vector<Player *> *newAllPlayersOnMarketPtr
 Person* Person::getPersonPtrFromID(string personID){
     char firstChar = personID[0];
     if (firstChar == 'A'){
-        throw "Error: You can not obtain a User if you are giving an Admin ID";
+        cout << "Error: You can not obtain a User if you are giving an Admin ID" << endl;
+        return nullptr;
     }
 
     for (int i=0; i < (int) _allPeoplePtr->size();i++){

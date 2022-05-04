@@ -6,7 +6,7 @@
 //1.0.0
 using namespace std;
 
-Application::Application(): _allPlayers(), _allPlayersOnMarket(){
+Application::Application(){
     currentPlayerID = 10000; //ID with 5 digits for players
     currentPersonID = 1000000;
 
@@ -46,6 +46,12 @@ Application::Application(): _allPlayers(), _allPlayersOnMarket(){
     //admin.addPersonToSystem(true, 123, "hello", 1000000);
     admin.addPersonToSystem(false, 123, "hello", 1000000);
 
+    admin.createRandomPlayers(7, randomFirstNames, randomLastNames, sizeof(randomFirstNames)/sizeof(randomFirstNames[0]), sizeof(randomLastNames)/sizeof(randomFirstNames[0]));
+    admin.addPersonToSystem(false, 123, "hello", 1000000);
+    admin.createRandomPlayers(21, randomFirstNames, randomLastNames, sizeof(randomFirstNames)/sizeof(randomFirstNames[0]), sizeof(randomLastNames)/sizeof(randomFirstNames[0]));
+    admin.addPersonToSystem(false, 123, "hello", 1000000);
+    admin.addPersonToSystem(false, 123, "hello", 1000000);
+
     //_allPeople[2]->displayPerson();
 
 
@@ -73,6 +79,7 @@ Application::Application(): _allPlayers(), _allPlayersOnMarket(){
     mainUser->changeStatusPlayer(10006);
     mainUser->changeStatusPlayer(10004);
     mainUser->changeStatusPlayer(10000);
+
     admin.changeHealthStatusPlayer(10000, false);
     admin.updateScorePlayer(10000, 10);
     admin.changeHealthStatusPlayer(10000, true);
@@ -81,12 +88,47 @@ Application::Application(): _allPlayers(), _allPlayersOnMarket(){
     mainUser->changeStatusPlayer(10000);
     admin.updateScorePlayer(10000, 1);
 
+    admin.updateScorePlayer(10010, 32);
+    srand ( time(NULL) );
+    cout << "_allPlayers.size(): " << _allPlayers.size() << endl;
+    for (int i=0; i<(int)_allPlayers.size();i++){
+        int randNum = rand() % 100 + 1;
+        if (randNum <= 60){
+            User* u = this->getUserPtrFromID(_allPlayers[i]->getOwningUserID());
+            if (u){
+                u->changeStatusPlayer(_allPlayers[i]->getPlayerID());
+            }else{
+                cout << "This player doesn't have a user, therefore he cannot change status." << endl;
+            }
+
+        }
+        admin.updateScorePlayer(_allPlayers[i]->getPlayerID(), randNum);
+    }
+
     cout << "Score of Team: " << getUserPtrFromID("U1000001")->getTeam()->getScore() << endl;
 
-
+    mainUser->seePlayers();
 
     this->displayAllPlayers();
 
+
+    admin.createNewPlayer("Kobe Bryant", 2, true, 1000);
+    mainUser->seePlayers();
+    mainUser->buyPlayer(10008);
+    mainUser->changeStatusPlayer(10008);
+    mainUser->seeLineup();
+
+    mainUser->seePlayers();
+    cout << "Print Budget of User after buy: " << mainUser->getBudget() << endl;
+    mainUser->sellPlayer(10008);
+    mainUser->seePlayers();
+    cout << "Print Budget of User after sell: " << mainUser->getBudget() << endl;
+
+    mainUser->seeLineup();
+    mainUser->displayScoreboard();
+    mainUser->seePlayers();
+    mainUser->seePlayers(1);
+    mainUser->seePlayers(2);
 
     cout << "Program Finished!" << endl;
 }
@@ -154,7 +196,8 @@ string Application::assignCurrentPersonID(bool isAdmin){
 User* Application::getUserPtrFromID(string personID){
     char firstChar = personID[0];
     if (firstChar == 'A'){
-        throw "Error: You can not obtain a User if you are giving an Admin ID";
+        cout << "Error: You can not obtain a User if you are giving an Admin ID" << endl;
+        return nullptr;
     }
 
     for (int i=0; i < (int) _allPeople.size();i++){
@@ -162,8 +205,8 @@ User* Application::getUserPtrFromID(string personID){
             return dynamic_cast<User*> (_allPeople[i]);
         }
     }
-
-    throw "Error: Person not found";
+    cout << "Error: Person not found" << endl;
+    return nullptr;
 }
 
 Player* Application::getPlayerPtrFromID(int playerID){

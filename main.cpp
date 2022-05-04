@@ -9,7 +9,6 @@
 
 using namespace std;
 
-
 int main() // calls the application
 {
     Application app = Application();

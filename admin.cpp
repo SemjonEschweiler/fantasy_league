@@ -96,72 +96,84 @@ void Admin::deletePlayer(int playerID){
 }
 
 void Admin::addPersonToSystem(bool isAdmin, int numericID, string password, int budget){
+
     //Adds a person to the system (either User or Admin) if it is a Person it will get a budget too
     if (isAdmin == 1){
         cout << "this->assignCurrentPersonID(isAdmin): " << this->assignCurrentPersonID(isAdmin) << endl;
         cout << "this->getAllPeoplePtr(): " << this->getAllPeoplePtr() << endl;
         Admin* newadmin = new Admin(this->assignCurrentPersonID(isAdmin), "random", _currentPlayerIDPtr, _currentPersonIDPtr, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
     }else{
-        Team* newteam = new Team();
-        srand ( time(NULL) );
-        User* newuser = new User(this->assignCurrentPersonID(isAdmin), "randompw", 100000, newteam, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
-        int randIndex;
-        bool wasPlayerAdded;
-        cout << "All declarations worked" << endl;
-        for (int i=0; i<7; i++){//Adding 7 players
-            //add Player to User(to do so add the UserID to Player/Team (Add Player to Substitutes of a team)
-            randIndex = rand() % _allPlayersOnMarketPtr->size();
-            (*_allPlayersOnMarketPtr)[randIndex]->setOwningUserId(newuser->getID());
-            //newuser.addPlayer(*(*_allPlayersOnMarketPtr)[randIndex]);
-            wasPlayerAdded = false;
-            for (int i=0; i< (int) sizeof(newuser->getTeam()->getTeamSubstitutes()); i++){
-                if (wasPlayerAdded == false){
-                    if (newuser->getTeam()->getTeamSubstitutes()->size() <= 10)
-                    {
-                    Player* addThisPlayer = (*_allPlayersOnMarketPtr)[randIndex];
-                    (*newuser->getTeam()->getTeamSubstitutes()).push_back( addThisPlayer);
-                    wasPlayerAdded = true;
-                    cout << "Player has been added to substitutes" << endl;
-                    }else{
+        if ((*_allPlayersOnMarketPtr).size() >= 7){
+            Team* newteam = new Team();
+            srand ( time(NULL) );
+            User* newuser = new User(this->assignCurrentPersonID(isAdmin), "randompw", 100000, newteam, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
+            int randIndex;
+            bool wasPlayerAdded;
+            cout << "All declarations worked" << endl;
+            for (int i=0; i<7; i++){//Adding 7 players
+                //add Player to User(to do so add the UserID to Player/Team (Add Player to Substitutes of a team)
+                randIndex = rand() % _allPlayersOnMarketPtr->size();
+                (*_allPlayersOnMarketPtr)[randIndex]->setOwningUserId(newuser->getID());
+                //newuser.addPlayer(*(*_allPlayersOnMarketPtr)[randIndex]);
+                wasPlayerAdded = false;
+                for (int i=0; i< (int) sizeof(newuser->getTeam()->getTeamSubstitutes()); i++){
+                    if (wasPlayerAdded == false){
+                        if (newuser->getTeam()->getTeamSubstitutes()->size() <= 10)
+                        {
+                        Player* addThisPlayer = (*_allPlayersOnMarketPtr)[randIndex];
+                        (*newuser->getTeam()->getTeamSubstitutes()).push_back( addThisPlayer);
+                        wasPlayerAdded = true;
+                        cout << "Player has been added to substitutes" << endl;
+                        }else{
 
-                    }
+                        }
 
-                 }
+                     }
+                }
+
+                _allPlayersOnMarketPtr->erase(_allPlayersOnMarketPtr->begin() + randIndex);
             }
-
-            _allPlayersOnMarketPtr->erase(_allPlayersOnMarketPtr->begin() + randIndex);
-
+        }else {
+            cout << "Marketplace has less than 7 players, therefore new User cannot be created." << endl;
         }
-
     }
 }
 
 void Admin::updateScorePlayer(int playerID, int score){
+    cout << "Changing the Score of Player(" << playerID << ") to " << score << "... ";
     string owningUserID;
     /*
     srand ( time(NULL) );
     int randScore = rand() % 11;
 */
     //This for loop obtains the owning UserID of the User who owns the Player
+
     for (int i=0; i< (int) _allPlayersPtr->size();i++){
         if (playerID == (*_allPlayersPtr)[i]->getPlayerID()){
             owningUserID = (*_allPlayersPtr)[i]->getOwningUserID();
         }
     }
+    if (owningUserID == ""){
+        cout << "Player does not belong to a User therefore score doesn't get updated. --> Done!" << endl;
+        return;
+    }else{
 
-    //this finds the User by the UserID
-    User* cUser = getUserPtrFromID(owningUserID);
-    Player* player = getPlayerPtrFromID(playerID);
-    if ((player->isStarterPlayer() == true) && (player->getHealthStatus() == true)){
-        cUser->getTeam()->setScore(cUser->getTeam()->getScore() + score);
+        //this finds the User by the UserID
+        User* cUser = getUserPtrFromID(owningUserID);
+        Player* player = getPlayerPtrFromID(playerID);
+        if ((player->isStarterPlayer() == true) && (player->getHealthStatus() == true)){
+            cUser->getTeam()->setScore(cUser->getTeam()->getScore() + score);
+        }
+        cout << "Done!" << endl;
+        cout << "This is the updated score now: (" << cUser->getTeam()->getScore() << ")" << endl;
     }
-    cout << "This is the updated score now: (" << cUser->getTeam()->getScore() << ")" << endl;
-
 }
 
 void Admin::changeHealthStatusPlayer(int playerID, bool isHealthy){
+    cout << "Changing the Healthstatus of Player(" << playerID << ") to " << isHealthy << "... ";
     Player* p = getPlayerPtrFromID(playerID);
     p->setHealthStatus(isHealthy);
+    cout << "Done!" << endl;
 }
 
 void Admin::setCurrentPlayerIDPtr(int *newCurrentPlayerIDPtr)
@@ -233,9 +245,9 @@ void Admin::createRandomPlayers(int amountOfPlayers, string *firstNames, string 
 
 
         if (randHealthy >= 95){
-            isHealthy = true;
-        }else {
             isHealthy = false;
+        }else {
+            isHealthy = true;
         }
         marketValue = randMarketValueMultiplication * 50000; //Marketvalue is a random number between 1 and 20 multiplied by 50000
 
@@ -248,7 +260,6 @@ User* Admin::getUserPtrFromID(string personID){
     if (firstChar == 'A'){
         throw "Error: You can not obtain a User if you are giving an Admin ID";
     }
-
     for (int i=0; i < (int) _allPeoplePtr->size();i++){
         if (personID == (*_allPeoplePtr)[i]->getID()){
             return dynamic_cast<User*> ((*_allPeoplePtr)[i]);

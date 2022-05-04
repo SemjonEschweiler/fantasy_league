@@ -59,7 +59,9 @@ Person* Person::getPersonPtrFromID(string personID){
         }
     }
 
-    throw "Error: Person not found";
+    //throw "Error: Person not found";
+    cout << "Error: Person not found" << endl;
+    return nullptr;
 }
 
 Player* Person::getPlayerPtrFromID(int playerID){
@@ -68,5 +70,7 @@ Player* Person::getPlayerPtrFromID(int playerID){
             return (*_allPlayersPtr)[i];
         }
     }
-    throw "Didnt find player with ID";
+    //throw "Didnt find player with ID";
+    cout << "Didnt find player with ID" << endl;
+    return nullptr;
 }

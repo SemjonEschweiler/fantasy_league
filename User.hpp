@@ -16,13 +16,14 @@ public:
     void setBudget(int budget);
     Team* getTeam();
 
-    void seePlayers();
-    Player buyPlayer(int playerID);
-    Player sellPlayer(int playerID);
+    void seePlayers(int displayOption=0);
+    void buyPlayer(int playerID);
+    void sellPlayer(int playerID);
     void seeLineup();
     int changeStatusPlayer(int playerID);
     void displayScoreboard();
     void displayPerson();
+    bool compareRanking(User* u1, User* u2);
     //void addPlayer(Player newPlayer);
 
 private:

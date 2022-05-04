@@ -14,13 +14,16 @@ class Admin: public Person
 {
 public:
     Admin(string personID, string password, int* currentPlayerID, int* currentPersonID, vector<Player*>* _allPlayers, vector<Player*>* _allPlayersOnMarket, vector<Person*>* _allPeople);
-    Player *createNewPlayer(string name, int position, bool is_able_playing, int market_value);
+    Player* createNewPlayer(int ID, string name, int position, bool is_able_playing, int market_value);
     void deletePlayer(int playerID);
-    void addPersonToSystem(bool isAdmin, int numericID, string password, int budget);
+    void addPersonToSystem(bool isAdmin, string numericID, string password, int budget);
     void updateScorePlayer(int playerID, int points, int rebounds, int assists, int steals, int blocks, int turnovers);
     void changeHealthStatusPlayer(int playerID, bool isHealthy);
     int assignCurrentPlayerID();
     string assignCurrentPersonID(bool isAdmin);
+    void addPlayerToUser(int playerID, string personID);
+    void displayAllPlayers();
+    void displayAllPeople();
     void displayPerson();
     void createRandomPlayers(int amountOfPlayers, string *firstNames, string *lastNames, int sizeFirstNames, int sizeLastNames);
 
@@ -30,7 +33,6 @@ public:
 
     int *currentPersonIDPtr() const;
     void setCurrentPersonIDPtr(int *newCurrentPersonIDPtr);
-
 
 private:
     int* _currentPlayerIDPtr;

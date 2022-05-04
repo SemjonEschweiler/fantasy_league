@@ -24,7 +24,7 @@ void User::seePlayers(int displayOption){
     cout << "\n\n---------------" << endl;
     cout << "These are all players on the Market: " << endl;
 
-    cout << left << setw(10) << "Number" << left << setw(25) << "Name" << left << setw(8) << "ID" << left << setw(20) << "Market Value" << left << setw(20) << "Personal Score" << endl;
+    this->displayPlayerHeader();
     vector<Player*> allPlayers;
     for (int i=0; i<(int)_allPlayersOnMarketPtr->size(); i++){
         allPlayers.push_back((*_allPlayersOnMarketPtr)[i]);
@@ -46,9 +46,11 @@ void User::seePlayers(int displayOption){
 
     for (int i=0; i<(int)allPlayers.size(); i++){
         Player* p = allPlayers[i];
-        cout << left << setw(10) << i << left << setw(25) << p->getName() << left << setw(8) << p->getPlayerID() << left << setw(20) << p->getMarketValue() << left << setw(20) << p->getScore() << endl;
+        this->displayPlayerData(p, i);
     }
 }
+
+
 
 void User::buyPlayer(int playerID){
     //subtract (if budget allows) the market value
@@ -123,22 +125,21 @@ void User::seeLineup(){
     cout << "This is the lineup: \n" << endl;
 
     cout << "--------Starters--------" <<endl;
-    cout << left << setw(10) << "Number" << left << setw(25) << "Name" << left << setw(8) << "ID" << left << setw(20) << "Market Value" << left << setw(20) << "Personal Score" << endl;
+    displayPlayerHeader();
 
     for (int i=0; i<(int)this->getTeam()->getTeamStarters()->size(); i++){
         Player* p = (*this->getTeam()->getTeamStarters())[i];
-        cout << left << setw(10) << i << left << setw(25) << p->getName() << left << setw(8) << p->getPlayerID() << left << setw(20) << p->getMarketValue() << left << setw(20) << p->getScore() << endl;
+        displayPlayerData(p, i);
     }
     cout << endl;
 
     cout << "--------Substitutes--------" <<endl;
-    cout << left << setw(10) << "Number" << left << setw(25) << "Name" << left << setw(8) << "ID" << left << setw(20) << "Market Value" << left << setw(20) << "Personal Score" << endl;
+    displayPlayerHeader();
 
     for (int i=0; i<(int)this->getTeam()->getTeamSubstitutes()->size(); i++){
         Player* p = (*this->getTeam()->getTeamSubstitutes())[i];
-        cout << left << setw(10) << i << left << setw(25) << p->getName() << left << setw(8) << p->getPlayerID() << left << setw(20) << p->getMarketValue() << left << setw(20) << p->getScore() << endl;
+        displayPlayerData(p, i);
     }
-
 }
 
 int User::changeStatusPlayer(int playerID) {

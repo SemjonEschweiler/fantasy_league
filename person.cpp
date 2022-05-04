@@ -1,4 +1,5 @@
 #include "Person.hpp"
+#include <iomanip>
 
 Person::Person(string personID, string password, vector<Player*>* _allPlayers, vector<Player*>* _allPlayersOnMarket, vector<Person*>* allPeople){
     _personID = personID;//Uxxxxxxx for Users, Axxxxxxx for Admins
@@ -12,6 +13,15 @@ Person::Person(string personID, string password, vector<Player*>* _allPlayers, v
 
 string Person::getID(){
     return _personID;
+}
+
+void Person::displayPlayerData(Player* p, int index){
+    cout << left << setw(10) << index << left << setw(25) << p->getName() << left << setw(8) << p->getPlayerID() << left << setw(20) << p->getMarketValue() << left << setw(20) << p->getScore() << left << setw(20) << p->getHealthStatus() << left << setw(10) << p->getPosition() << endl;
+
+}
+
+void Person::displayPlayerHeader(){
+    cout << left << setw(10) << "Number" << left << setw(25) << "Name" << left << setw(8) << "ID" << left << setw(20) << "Market Value" << left << setw(20) << "Personal Score" << left << setw(20) << "Health Status" << left << setw(10) << "Position" << endl;
 }
 
 string Person::getPassword(){

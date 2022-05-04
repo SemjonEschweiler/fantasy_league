@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -10,7 +11,7 @@ class Player
 public:
     Player();
     ~Player();
-    Player(string name, int playerID, bool healthStatus, string userID, int marketValue, bool isStarter, int position);
+    Player(string name, int playerID, bool healthStatus, string userID, int marketValue, bool isStarter, int position, vector<Player*>* _allPlayersPtr, vector<Player*>* _allPlayersOnMarketPtr);
     string getName();
     int getPlayerID();
     bool getHealthStatus();

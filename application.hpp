@@ -23,13 +23,18 @@ public:
     int assignCurrentPlayerID();
     string assignCurrentPersonID(bool isAdmin);
     User* getUserPtrFromID(string ID);
+    Person* getPersonPtrFromID(string personID);
     Player* getPlayerPtrFromID(int playerID);
-//With this Function you'll receive the current ID to assign it to a newly created player and immediately increment the currentPlayerID
+    void login();
+    int mainMenu();
+    const string &getCurrentLoggedInID() const;
+    void setCurrentLoggedInID(const string &newCurrentLoggedInID);
+
 private:
     int currentPlayerID; //Each player will have an ID with 5 digits,  10000 is the first to be given to a player
     int currentPersonID; //Each person will get assigned a 7 digit ID doesnt matter if User or Admin
+    string _currentLoggedInID;
 
-    //TODO -> dynamic Memory here please!
     vector<Player*> _allPlayers; // Stores all players
     vector<Player*> _allPlayersOnMarket; // Stores all players, which are on the marketplace
     vector<Person*> _allPeople; //Stores all users and admins

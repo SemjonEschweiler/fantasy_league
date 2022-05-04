@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include <vector>
 
 Player::Player(){
     _name = "";
@@ -11,7 +12,7 @@ Player::Player(){
 
 }
 
-Player::Player(string name, int playerID, bool healthStatus, string userID, int marketValue, bool isStarter, int position)//creates a dummy player
+Player::Player(string name, int playerID, bool healthStatus, string userID, int marketValue, bool isStarter, int position, vector<Player*>* _allPlayersPtr, vector<Player*>* _allPlayersOnMarketPtr)
 {
     _name = name;
     _playerID = playerID;
@@ -21,6 +22,8 @@ Player::Player(string name, int playerID, bool healthStatus, string userID, int 
     _isStarter = isStarter;
     _position = position;
     _score = 0;
+    _allPlayersPtr->push_back(this);
+    _allPlayersOnMarketPtr->push_back(this);
 
 }
 

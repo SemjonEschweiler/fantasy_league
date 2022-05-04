@@ -25,6 +25,8 @@ public:
     void setAllPlayersPtr(vector<Player *> *newAllPlayersPtr);
     void setAllPlayersOnMarketPtr(vector<Player *> *newAllPlayersOnMarketPtr);
     Player* getPlayerPtrFromID(int playerID);
+    void displayPlayerData(Player* p, int index);
+    void displayPlayerHeader();
 
 private:
     string _personID;//Uxxxxxxx for Users, Axxxxxxx for Admins

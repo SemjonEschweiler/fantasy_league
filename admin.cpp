@@ -16,12 +16,10 @@ Admin::Admin(string personID, string password, int* currentPlayerID, int* curren
 }
 
 
-Player* Admin::createNewPlayer(string name, int position, bool is_able_playing, int market_value){
-    Player* newplayer = new Player(name, assignCurrentPlayerID(), is_able_playing, "", market_value, false, position);
+Player* Admin::createNewPlayer(int ID, string name, int position, bool is_able_playing, int market_value){
+    Player* newplayer = new Player(name, ID, is_able_playing, "", market_value, false, position, _allPlayersPtr, _allPlayersOnMarketPtr);
 
     //TODO add to different lists market and allplayers
-    _allPlayersPtr->push_back(newplayer);
-    _allPlayersOnMarketPtr->push_back(newplayer);
     cout << "Creation of player worked: " << endl;
     newplayer->displayPlayer();
     return newplayer;
@@ -95,18 +93,18 @@ void Admin::deletePlayer(int playerID){
     }
 }
 
-void Admin::addPersonToSystem(bool isAdmin, int numericID, string password, int budget){
+void Admin::addPersonToSystem(bool isAdmin, string numericID, string password, int budget){
 
     //Adds a person to the system (either User or Admin) if it is a Person it will get a budget too
     if (isAdmin == 1){
         cout << "this->assignCurrentPersonID(isAdmin): " << this->assignCurrentPersonID(isAdmin) << endl;
         cout << "this->getAllPeoplePtr(): " << this->getAllPeoplePtr() << endl;
-        Admin* newadmin = new Admin(this->assignCurrentPersonID(isAdmin), "random", _currentPlayerIDPtr, _currentPersonIDPtr, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
+        Admin* newadmin = new Admin(numericID, password, _currentPlayerIDPtr, _currentPersonIDPtr, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
     }else{
         if ((*_allPlayersOnMarketPtr).size() >= 7){
             Team* newteam = new Team();
             srand ( time(NULL) );
-            User* newuser = new User(this->assignCurrentPersonID(isAdmin), "randompw", 100000, newteam, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
+            User* newuser = new User(numericID, password, budget, newteam, _allPlayersPtr, _allPlayersOnMarketPtr, this->getAllPeoplePtr());
             int randIndex;
             bool wasPlayerAdded;
             cout << "All declarations worked" << endl;
@@ -257,7 +255,7 @@ void Admin::createRandomPlayers(int amountOfPlayers, string *firstNames, string 
         }
         marketValue = randMarketValueMultiplication * 50000; //Marketvalue is a random number between 1 and 20 multiplied by 50000
 
-        this->createNewPlayer(fullName, randPosition, isHealthy, marketValue);
+        //this->createNewPlayer(fullName, randPosition, isHealthy, marketValue);
     }
 }
 
@@ -275,5 +273,29 @@ User* Admin::getUserPtrFromID(string personID){
     throw "Error: Person not found";
 }
 
+void Admin::addPlayerToUser(int playerID, string personID)
+{
+    User* u = dynamic_cast<User*>(getPersonPtrFromID(personID));
+    for (int i=0;i<(int)_allPlayersOnMarketPtr->size();i++){
+        if ((*_allPlayersOnMarketPtr)[i]->getPlayerID() == playerID){
+            Player* p = (*_allPlayersOnMarketPtr)[i];
+            u->getTeam()->getTeamSubstitutes()->push_back(p);
+            _allPlayersOnMarketPtr->erase(_allPlayersOnMarketPtr->begin() + i);
+        }
+    }
 
+}
 
+void Admin::displayAllPlayers(){
+    this->displayPlayerHeader();
+    for (int i=0; i<(int)_allPlayersPtr->size(); i++){
+        Player* p = (*_allPlayersPtr)[i];
+        this->displayPlayerData(p, i);
+    }
+}
+
+void Admin::displayAllPeople(){
+    for (int i=0; i<(int)_allPeoplePtr->size(); i++){
+        cout << i +1 << ":" << (*_allPeoplePtr)[i]->getID() << endl;
+    }
+}

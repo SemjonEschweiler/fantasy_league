@@ -31,10 +31,10 @@ void Team::displayAllSubstitutes(){
 
 }
 
-int Team::getScore(){
+double Team::getScore(){
     return _score;
 }
 
-void Team::setScore(int score){
+void Team::setScore(double score){
     _score = score;
 }

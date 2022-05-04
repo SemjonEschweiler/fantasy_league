@@ -139,13 +139,17 @@ void Admin::addPersonToSystem(bool isAdmin, int numericID, string password, int 
     }
 }
 
-void Admin::updateScorePlayer(int playerID, int score){
+void Admin::updateScorePlayer(int playerID, int points, int rebounds, int assists, int steals, int blocks, int turnovers){
+    //score will get calculated according to this website: https://sports.yahoo.com/how-to-navigate-fantasy-basketball-points-leagues-in-202021-182530803.html
+    //And then will the score devided by 5, if the score is higher then 10
+    double score = points * 1 + rebounds * 1.2 + assists * 1.5 + steals * 3 + blocks * 3 + turnovers * -1;
+    score /= 5;
+    if (score > 10){
+        score = 10;
+    }
+
     cout << "Changing the Score of Player(" << playerID << ") to " << score << "... ";
     string owningUserID;
-    /*
-    srand ( time(NULL) );
-    int randScore = rand() % 11;
-*/
     //This for loop obtains the owning UserID of the User who owns the Player
 
     for (int i=0; i< (int) _allPlayersPtr->size();i++){
@@ -163,9 +167,10 @@ void Admin::updateScorePlayer(int playerID, int score){
         Player* player = getPlayerPtrFromID(playerID);
         if ((player->isStarterPlayer() == true) && (player->getHealthStatus() == true)){
             cUser->getTeam()->setScore(cUser->getTeam()->getScore() + score);
+            player->setScore(player->getScore()+score);
         }
         cout << "Done!" << endl;
-        cout << "This is the updated score now: (" << cUser->getTeam()->getScore() << ")" << endl;
+        cout << "This is the updated score now: (TeamScore: " << cUser->getTeam()->getScore() << ", PlayerScore: " << player->getScore() << ")" << endl;
     }
 }
 

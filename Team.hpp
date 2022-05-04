@@ -16,13 +16,13 @@ public:
     void displayAllPlayers();
     void displayAllStarters();
     void displayAllSubstitutes();
-    int getScore();
-    void setScore(int score);
+    double getScore();
+    void setScore(double score);
 
 private:
     vector<Player*> _starters;
     vector<Player*> _substitutes;//Stores up to 10 substitutes, to store all players at the beginning in there
-    int _score;
+    double _score;
 
 };
 

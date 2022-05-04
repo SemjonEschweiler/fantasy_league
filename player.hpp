@@ -27,8 +27,12 @@ public:
     void setPosition(int position);
     void displayPlayer();
 
+    double getScore() const;
+    void setScore(double newScore);
+
 private:
     string _name;
+    double _score;
     int _playerID;
     bool _healthStatus; //true for fit; false for not playing/not fit
     string _userID;

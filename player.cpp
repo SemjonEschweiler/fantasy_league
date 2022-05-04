@@ -20,6 +20,7 @@ Player::Player(string name, int playerID, bool healthStatus, string userID, int 
     _marketValue = marketValue;
     _isStarter = isStarter;
     _position = position;
+    _score = 0;
 
 }
 
@@ -85,4 +86,14 @@ void Player::setPosition(int position){
 
 void Player::displayPlayer(){
     cout << "Player (" << _playerID << "): " << _name << "\n\tHealth Status: " << _healthStatus << "\n\tUser Owning: " << _userID << "\n\tMarketValue: " << _marketValue << "\n\tStarting Player: " << _isStarter << "\n\tPosition: " << _position << endl << endl;
+}
+
+double Player::getScore() const
+{
+    return _score;
+}
+
+void Player::setScore(double newScore)
+{
+    _score = newScore;
 }

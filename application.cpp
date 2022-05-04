@@ -81,18 +81,23 @@ Application::Application(){
     mainUser->changeStatusPlayer(10000);
 
     admin.changeHealthStatusPlayer(10000, false);
-    admin.updateScorePlayer(10000, 10);
+    admin.updateScorePlayer(10000, 8, 2, 6, 2, 3, 2);
     admin.changeHealthStatusPlayer(10000, true);
-    admin.updateScorePlayer(10000, 8);
-    admin.updateScorePlayer(10000, 3);
+    admin.updateScorePlayer(10000, 8, 2, 6, 2, 3, 2);
+    admin.updateScorePlayer(10000, 8, 2, 6, 2, 3, 2);
     mainUser->changeStatusPlayer(10000);
-    admin.updateScorePlayer(10000, 1);
+    admin.updateScorePlayer(10000, 8, 2, 6, 2, 3, 2);
 
-    admin.updateScorePlayer(10010, 32);
+    admin.updateScorePlayer(10000, 8, 2, 6, 2, 3, 2);
     srand ( time(NULL) );
     cout << "_allPlayers.size(): " << _allPlayers.size() << endl;
     for (int i=0; i<(int)_allPlayers.size();i++){
         int randNum = rand() % 100 + 1;
+        int randPoints = rand() % 31;
+        int randAssists = rand() % 20;
+        int randTurnovers = rand() % 6;
+        int randBlocks = rand() % 7;
+        int randSteals = rand() & 6;
         if (randNum <= 60){
             User* u = this->getUserPtrFromID(_allPlayers[i]->getOwningUserID());
             if (u){
@@ -102,7 +107,7 @@ Application::Application(){
             }
 
         }
-        admin.updateScorePlayer(_allPlayers[i]->getPlayerID(), randNum);
+        admin.updateScorePlayer(_allPlayers[i]->getPlayerID(), randNum, randPoints, randAssists, randSteals, randBlocks, randTurnovers);
     }
 
     cout << "Score of Team: " << getUserPtrFromID("U1000001")->getTeam()->getScore() << endl;
@@ -141,9 +146,9 @@ Application::~Application(){
     for (int i=0;i<(int)_allPeople.size();i++){
         if (_allPeople[i]->getID()[0] == 'U'){
             delete dynamic_cast<User*>(_allPeople[i])->getTeam();
-            delete dynamic_cast<User*>(_allPeople[i]);
+            //delete dynamic_cast<User*>(_allPeople[i]);
         }else if (_allPeople[i]->getID()[0] == 'A'){
-            delete dynamic_cast<Admin*>(_allPeople[i]);
+            //delete dynamic_cast<Admin*>(_allPeople[i]);
         }
     }
 }

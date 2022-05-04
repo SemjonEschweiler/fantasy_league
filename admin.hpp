@@ -17,7 +17,7 @@ public:
     Player *createNewPlayer(string name, int position, bool is_able_playing, int market_value);
     void deletePlayer(int playerID);
     void addPersonToSystem(bool isAdmin, int numericID, string password, int budget);
-    void updateScorePlayer(int playerID, int score);
+    void updateScorePlayer(int playerID, int points, int rebounds, int assists, int steals, int blocks, int turnovers);
     void changeHealthStatusPlayer(int playerID, bool isHealthy);
     int assignCurrentPlayerID();
     string assignCurrentPersonID(bool isAdmin);

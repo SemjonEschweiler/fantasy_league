@@ -1,0 +1,162 @@
+{
+  "Player0":{
+    "ID": 0,
+    "Name": "Dirk",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "U000000",
+    "Market Value": 1000000,
+    "Is Starter": 1,  
+    "Position": 0
+  },
+  "Player1":{
+    "ID": 1,
+    "Name": "Hans",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "U000000",
+    "Market Value": 1000000,
+    "Is Starter": 1,
+    "Position": 0
+  },
+  "Player2":{
+    "ID": 2,
+    "Name": "Paul",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "U000000",
+    "Market Value": 1000000,
+    "Is Starter": 1,
+    "Position": 0
+  },
+  "Player3":{
+    "ID": 3,
+    "Name": "Franz",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "U000000",
+    "Market Value": 1000000,
+    "Is Starter": 1,
+    "Position": 0
+  },
+  "Player4":{
+    "ID": 4,
+    "Name": "Kevin",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "U000000",
+    "Market Value": 1000000,
+    "Is Starter": 1,
+    "Position": 0
+  },
+  "Player5":{
+    "ID": 5,
+    "Name": "Durant",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "U000000",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  },
+  "Player6":{
+    "ID": 6,
+    "Name": "Ben",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "U000000",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  },
+  "Player7":{
+    "ID": 7,
+    "Name": "John",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "U000000",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  },
+  "Player8":{
+    "ID": 8,
+    "Name": "Funnel",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "U000000",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  },
+  "Player9":{
+    "ID": 9,
+    "Name": "Kroos",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  },
+  "Player10":{
+    "ID": 10,
+    "Name": "Humboldt",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  },
+  "Player11":{
+    "ID": 11,
+    "Name": "Kaiser",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  },
+  "Player12":{
+    "ID": 12,
+    "Name": "Rupert",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  },
+  "Player13":{
+    "ID": 13,
+    "Name": "Urlando",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  },
+  "Player14":{
+    "ID": 14,
+    "Name": "Zamantha",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  },
+  "Player15":{
+    "ID": 15,
+    "Name": "Tevin",
+    "Score": 0,
+    "Health Status": 1,
+    "Owning User ID": "",
+    "Market Value": 1000000,
+    "Is Starter": 0,
+    "Position": 0
+  }
+}

@@ -11,6 +11,10 @@ User::User(string personID, string password, int budget, Team* team, vector<Play
     //Test functionality of update score
 }
 
+User::~User(){
+
+}
+
 int User::getBudget(){
     return _budget;
 }

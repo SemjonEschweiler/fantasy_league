@@ -4,13 +4,30 @@
 #include <sstream>
 #include<chrono>
 #include<thread>
+#include <fstream>
+#include <single_include/nlohmann/json.hpp>
 
 //1.0.0
 using namespace std;
+using json = nlohmann::json;
 
 Application::Application(){
+    string peopleFilePath, playerFilePath;
+    #ifdef _WIN32
+     /* Windows code */
+        peopleFilePath = ".\\docs\\people.json";
+        playerFilePath = ".\\docs\\players.json";
+
+    #else
+     /* GNU/Linux code */
+        peopleFilePath = "./docs/people.json";
+        playerFilePath = "./docs/players.json";
+    #endif
+
     currentPlayerID = 10000; //ID with 5 digits for players
     currentPersonID = 1000000;
+
+    bool isTestingMode = false;
 
 
 //Initializes all Users, Admins
@@ -138,67 +155,201 @@ Application::Application(){
     mainUser->seePlayers(1);
     mainUser->seePlayers(2);
     */
-    Admin admin = Admin("A000000", "admin1", &currentPlayerID, &currentPersonID, &_allPlayers, &_allPlayersOnMarket, &_allPeople);
 
-    Team dallas = Team();
-    User user = User("U000000", "user1", 10000000, &dallas, &_allPlayers, &_allPlayersOnMarket, &_allPeople);
+    /*
+    Admin* admin = new Admin("A000000", "admin1", &currentPlayerID, &currentPersonID, &_allPlayers, &_allPlayersOnMarket, &_allPeople);
 
-    Player p1 = Player("Dirk", 0, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p2 = Player("Hans", 1, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p3 = Player("Max", 2, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p4 = Player("Leon", 3, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p5 = Player("Pablo", 4, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p6 = Player("Vince", 5, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p7 = Player("Gerry", 6, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p8 = Player("Arnold", 7, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p9 = Player("Beggy", 8, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p10 = Player("Corke", 9, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p11 = Player("Argon", 10, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p12 = Player("Methy", 11, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p13 = Player("Howy", 12, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p14 = Player("Odonald", 13, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p15 = Player("Pedro", 14, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
-    Player p16 = Player("Kenny", 15, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Team* dallas = new Team();
+    User* user = new User("U000000", "user1", 10000000, dallas, &_allPlayers, &_allPlayersOnMarket, &_allPeople);
+
+    Player* p1 = new Player("Dirk", 0, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p2 = new Player("Hans", 1, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p3 = new Player("Max", 2, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p4 = new Player("Leon", 3, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p5 = new Player("Pablo", 4, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p6 = new Player("Vince", 5, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p7 = new Player("Gerry", 6, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p8 = new Player("Arnold", 7, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p9 = new Player("Beggy", 8, 1,"U000000",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p10 = new Player("Corke", 9, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p11 = new Player("Argon", 10, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p12 = new Player("Methy", 11, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p13 = new Player("Howy", 12, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p14 = new Player("Odonald", 13, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p15 = new Player("Pedro", 14, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
+    Player* p16 = new Player("Kenny", 15, 1,"",1000000,0,0, &_allPlayers, &_allPlayersOnMarket);
 
     //Adding Player to User
     for (int i=0; i<9; i++){
-        admin.addPlayerToUser(i, "U000000");
+        admin->addPlayerToUser(i, "U000000");
     }
     for (int i=0; i<5;i++){
-        user.changeStatusPlayer(i);
+        user->changeStatusPlayer(i);
     }
 
-    user.seeLineup();
-    user.seePlayers();
+    user->seeLineup();
+    user->seePlayers();
+
+    */
+    this->loadFromFiles(peopleFilePath, playerFilePath);
+
+    User* u = getUserPtrFromID("U000000");
+    u->seePlayers();
+    u->seeLineup();
 
     bool quitSignal = false;
     while (1){
-        this->login();
-        cout << "Current Logged In ID: " << this->getCurrentLoggedInID() << endl;
-
-        quitSignal = this->mainMenu();
         if (quitSignal == true){
             break;
         }
+        if (isTestingMode){
+            _currentLoggedInID = "U000000";
+        }else{
+            this->login();
+        }
+        cout << "Current Logged In ID: " << this->getCurrentLoggedInID() << endl;
+
+        quitSignal = this->mainMenu();
+
     }
+
+    this->storeToFiles(peopleFilePath, playerFilePath);
     cout << "Program Finished!" << endl;
 }
 
 Application::~Application(){
-    //TODO:
-/*
+    //Deletes all Players, all Teams, all People (Users and Admins)
+
     for (int i=0;i<(int)_allPlayers.size(); i++){
-        delete _allPlayers[i];
+        Player* p = _allPlayers.at(i);
+
+        delete p;
     }
+
     for (int i=0;i<(int)_allPeople.size();i++){
-        if (_allPeople[i]->getID()[0] == 'U'){
-            delete dynamic_cast<User*>(_allPeople[i])->getTeam();
-            //delete dynamic_cast<User*>(_allPeople[i]);
-        }else if (_allPeople[i]->getID()[0] == 'A'){
-            //delete dynamic_cast<Admin*>(_allPeople[i]);
+        if ((_allPeople[i]->getID())[0] == 'U'){
+            User* u = dynamic_cast<User*>(_allPeople[i]);
+            Team* t = u->getTeam();
+
+            delete t;
+        }
+        delete _allPeople[i];
+    }
+
+}
+
+void Application::loadFromFiles(string peoplePath, string playerPath) {
+    string jID, jPassword;
+    double jScore;
+    int jBudget;
+
+    //cout << "At least that worked: "<< peoplePath << endl;
+
+    std::ifstream i(peoplePath);
+    //cout << i.rdbuf() << endl;
+    json j = json::parse(i);
+
+    for (json::iterator it = j.begin(); it != j.end(); ++it) {
+        json jPerson = *it;
+        if (it->size() == 2){
+            //cout << "element has two variables therefore is admin"  << jPerson["ID"] << endl;
+            jPerson.at("ID").get_to(jID);
+            jPerson.at("password").get_to(jPassword);
+
+            Admin* a = new Admin(jID, jPassword, &currentPlayerID, &currentPersonID, &_allPlayers, &_allPlayersOnMarket, &_allPeople);
+
+            cout << "Application: Admin was successfully loaded from file..." << endl;
+        }else if (it->size() == 4){
+            //cout << "element has 4 variables therefore is user" << endl;
+            jPerson.at("ID").get_to(jID);
+            jPerson.at("password").get_to(jPassword);
+            jPerson.at("budget").get_to(jBudget);
+            jPerson.at("score").get_to(jScore);
+
+            Team* t = new Team(jScore);
+            User* u = new User(jID, jPassword, jBudget, t, &_allPlayers, &_allPlayersOnMarket, &_allPeople);
+
+            cout << "Application: User was successfully loaded from file..." << endl;
+        }else{
+            cout << "This is a problem!" << endl;
         }
     }
-    */
+
+
+    ifstream txtPlayers(playerPath);
+    json jPlayers = json::parse(txtPlayers);
+
+    for (json::iterator it = jPlayers.begin(); it != jPlayers.end(); ++it) {
+        json jPlayer = *it;
+        string userID;
+        int isStarter;
+        jPlayer.at("Owning User ID").get_to(userID);
+        jPlayer.at("Is Starter").get_to(isStarter);
+        Player* p = new Player(jPlayer["Name"].get<string>(),jPlayer["ID"].get<int>(),jPlayer["Health Status"].get<int>(), jPlayer["Owning User ID"].get<string>(), jPlayer["Market Value"].get<int>(), jPlayer["Is Starter"].get<int>(),jPlayer["Position"].get<int>(),jPlayer["Score"],&_allPlayers, &_allPlayersOnMarket);
+        //if he has a User ID and is starter add to starters of that team
+        // if he has a User ID and not is starter add to substitutes
+        if  (userID != ""){
+            User* u = getUserPtrFromID(userID);
+            if (isStarter == true){
+                if (!(u->getTeam()->getTeamStarters()->size() > 5)){
+                    u->getTeam()->getTeamStarters()->push_back(p);
+                }
+            }else {
+                if (!(u->getTeam()->getTeamSubstitutes()->size() > 10)){
+                    u->getTeam()->getTeamSubstitutes()->push_back(p);
+                }
+            }
+            for (int i =0; i<(int)_allPlayersOnMarket.size(); i++){
+                if (_allPlayersOnMarket[i]->getPlayerID() == p->getPlayerID()){
+                    _allPlayersOnMarket.erase(_allPlayersOnMarket.begin() + i);
+                }
+            }
+        }
+        cout << "Application: Player was successfully loaded from file..." << endl;
+    }
+}
+
+void Application::storeToFiles(string peoplePath, string playerPath) {
+    json people = json::object();
+
+    for (int i=0; i< (int)_allPeople.size(); i++){
+        Person* pers = _allPeople[i];
+        if (pers->getID()[0] == 'A'){
+            Admin* a = dynamic_cast<Admin*>(pers);
+            json jEntry = json::object();
+            jEntry = {{"ID", a->getID()}, {"password", a->getPassword()}};
+            people.push_back({"Admin" + to_string(i), jEntry});
+        }else if (pers->getID()[0] == 'U'){
+            User* u = dynamic_cast<User*>(pers);
+            json jEntry = json::object();
+            jEntry = {{"ID", u->getID()}, {"password", u->getPassword()}, {"budget", u->getBudget()}, {"score", u->getTeam()->getScore()}};
+            people.push_back({"User" + to_string(i), jEntry});
+        }
+    }
+    cout << "Application: People have been successfully stored in the files..." << endl;
+    //cout << people.dump(4) << endl;
+
+    std::ofstream peopleOutput(peoplePath);
+    peopleOutput << std::setw(4) << people << endl;
+
+
+    json players = json::object();
+
+    for (int i=0; i<(int)_allPlayers.size(); i++){
+        Player* p = _allPlayers[i];
+        json player = json::object();
+        player = {{"ID",p->getPlayerID()}, {"Name", p->getName()}, {"Score", p->getScore()}, {"Health Status", p->getHealthStatus()}, {"Owning User ID", p->getOwningUserID()}, {"Market Value", p->getMarketValue()}, {"Is Starter", p->isStarterPlayer()}, {"Position", p->getPosition()}};
+
+        players.push_back( {"Player" + to_string(i), player});
+    }
+    //cout << players.dump(4) << endl;
+
+    std::ofstream playerOutput(playerPath);
+    playerOutput << std::setw(4) << players << endl;
+
+    cout << "Application: Successfully stored all Players in file..." << endl;
+
+
 }
 
 vector<Player*>* Application::getAllPlayers(){

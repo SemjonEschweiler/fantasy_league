@@ -11,6 +11,10 @@ Person::Person(string personID, string password, vector<Player*>* _allPlayers, v
 
 }
 
+Person::~Person(){
+
+}
+
 string Person::getID(){
     return _personID;
 }

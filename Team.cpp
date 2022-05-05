@@ -3,6 +3,11 @@
 Team::Team(){
     _score = 0;
 }
+
+Team::Team(double score){
+    _score = score;
+}
+
 vector<Player*>* Team::getTeamStarters(){
     return &_starters;
 }

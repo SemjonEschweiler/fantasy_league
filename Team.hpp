@@ -19,6 +19,7 @@ public:
     double getScore();
     void setScore(double score);
 
+    Team(double score);
 private:
     vector<Player*> _starters;
     vector<Player*> _substitutes;//Stores up to 10 substitutes, to store all players at the beginning in there

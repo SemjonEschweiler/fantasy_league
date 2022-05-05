@@ -11,7 +11,7 @@ class Player
 public:
     Player();
     ~Player();
-    Player(string name, int playerID, bool healthStatus, string userID, int marketValue, bool isStarter, int position, vector<Player*>* _allPlayersPtr, vector<Player*>* _allPlayersOnMarketPtr);
+    Player(string name, int playerID, bool healthStatus, string userID, int marketValue, bool isStarter, int position, double score, vector<Player *> *_allPlayersPtr, vector<Player *> *_allPlayersOnMarketPtr);
     string getName();
     int getPlayerID();
     bool getHealthStatus();
@@ -30,7 +30,6 @@ public:
 
     double getScore() const;
     void setScore(double newScore);
-
 private:
     string _name;
     double _score;
@@ -40,7 +39,7 @@ private:
     int _marketValue;
     bool _isStarter;
     int _position; //0: Center, 1: Power Forward, 2: Small Forward, 3: Point Guard, 4: Shooting Guard
-
+    vector<Player*>* allPlayersPtr;
 };
 
 #endif // PLAYER_H

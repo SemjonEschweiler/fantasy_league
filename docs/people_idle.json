@@ -1,0 +1,13 @@
+{
+	"Admin0": {
+		"ID": "A000000",
+		"password": "admin1"
+	}
+,
+	"User1": {
+		"ID": "U000000",
+		"password": "user1",
+		"budget": 10000000,
+		"score": 0.0
+	}
+}

@@ -15,9 +15,12 @@ Admin::Admin(string personID, string password, int* currentPlayerID, int* curren
     _allPeoplePtr = _allPeople;
 }
 
+Admin::~Admin(){
+
+}
 
 Player* Admin::createNewPlayer(int ID, string name, int position, bool is_able_playing, int market_value){
-    Player* newplayer = new Player(name, ID, is_able_playing, "", market_value, false, position, _allPlayersPtr, _allPlayersOnMarketPtr);
+    Player* newplayer = new Player(name, ID, is_able_playing, "", market_value, false, position, 0, _allPlayersPtr, _allPlayersOnMarketPtr);
 
     //TODO add to different lists market and allplayers
     cout << "Creation of player worked: " << endl;

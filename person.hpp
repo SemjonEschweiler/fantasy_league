@@ -12,6 +12,7 @@ class Person
 {
 public:
     Person(string personID, string password, vector<Player*>* _allPlayers, vector<Player*>* _allPlayersOnMarket, vector<Person*>* _allPeople);
+    virtual ~Person();
     string getID();
     string getPassword();
     void setID(string personID);

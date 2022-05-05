@@ -1,0 +1,18 @@
+{
+    "Admin0": {
+        "ID": "A000000",
+        "password": "admin1"
+    },
+    "User1": {
+        "ID": "U000000",
+        "budget": 9000000,
+        "password": "user1",
+        "score": 17.02
+    },
+    "User2": {
+        "ID": "U000001",
+        "budget": 3000000,
+        "password": "user1",
+        "score": 6.62
+    }
+}

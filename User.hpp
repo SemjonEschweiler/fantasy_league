@@ -12,6 +12,7 @@ class User: public Person
 {
 public:
     User(string personID, string password, int budget, Team* team, vector<Player*>* _allPlayers, vector<Player*>* _allPlayersOnMarket, vector<Person*>* _allPeople);
+    ~User();
     int getBudget();
     void setBudget(int budget);
     Team* getTeam();

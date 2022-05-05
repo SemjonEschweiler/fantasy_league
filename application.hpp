@@ -6,13 +6,13 @@
 #include "Person.hpp"
 #include "User.hpp"
 #include "Admin.hpp"
-#include "User.hpp"
 
 class Application
 {
 public:
     Application();
     ~Application();
+    void loadFromFiles(string peoplePath, string playerPath);
     vector<Player*>* getAllPlayers();
     vector<Player*>* getAllPlayersOnMarket();
     int getSizeAllPlayers();
@@ -30,6 +30,7 @@ public:
     const string &getCurrentLoggedInID() const;
     void setCurrentLoggedInID(const string &newCurrentLoggedInID);
 
+    void storeToFiles(string peoplePath, string playerPath);
 private:
     int currentPlayerID; //Each player will have an ID with 5 digits,  10000 is the first to be given to a player
     int currentPersonID; //Each person will get assigned a 7 digit ID doesnt matter if User or Admin

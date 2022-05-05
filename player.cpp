@@ -12,7 +12,7 @@ Player::Player(){
 
 }
 
-Player::Player(string name, int playerID, bool healthStatus, string userID, int marketValue, bool isStarter, int position, vector<Player*>* _allPlayersPtr, vector<Player*>* _allPlayersOnMarketPtr)
+Player::Player(string name, int playerID, bool healthStatus, string userID, int marketValue, bool isStarter, int position, double score, vector<Player*>* _allPlayersPtr, vector<Player*>* _allPlayersOnMarketPtr)
 {
     _name = name;
     _playerID = playerID;
@@ -21,13 +21,17 @@ Player::Player(string name, int playerID, bool healthStatus, string userID, int 
     _marketValue = marketValue;
     _isStarter = isStarter;
     _position = position;
-    _score = 0;
+    _score = score;
+    allPlayersPtr = _allPlayersPtr;
     _allPlayersPtr->push_back(this);
     _allPlayersOnMarketPtr->push_back(this);
 
 }
 
-Player::~Player(){
+Player::~Player(){/*
+    for (int i=0;i< allPlayersPtr->size(); i++){
+       delete (*allPlayersPtr)[i];
+    }*/
 
 }
 
